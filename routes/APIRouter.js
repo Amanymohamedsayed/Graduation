@@ -7,5 +7,4 @@ const router = Router()
 router.use("/" , homepage)
 router.use("/" , login)
 router.use("/" , signup)
-
 export default router

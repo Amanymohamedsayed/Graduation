@@ -8,6 +8,7 @@ import nodemailer from "nodemailer";
 import SetupModels from "./models/setupmodels.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
+import Cors from 'cors'
 const __filename = fileURLToPath(import.meta.url);
 
 const __dirname = path.dirname(__filename);
@@ -20,6 +21,8 @@ dotenv.config();
 process.env.ACCESS_TOKEN_SECRET
 
 const app = express();
+app.use(Cors())
+
 const JwtStrategy = Strategy;
 try {
 	  connection.authenticate();
@@ -40,6 +43,7 @@ app.use(morgan("dev"));
 
 app.use("/" , APIRouter)
 app.use("/assets", express.static("assets"));
+
 app.listen(process.env.PORT || 8080, () => {
 	console.log(`Server is running on port ${process.env.PORT || 8080}`);
 });

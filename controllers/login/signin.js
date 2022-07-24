@@ -43,7 +43,6 @@ async function login(req , res , next){
                 access_token: accessToken,
                 refresh_token: refreshToken,
                 role:user.role ,  
-
             }
         );     
     }

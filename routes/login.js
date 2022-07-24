@@ -10,5 +10,8 @@ const router  = Router()
 router.get('/signin', (req, res) => {
   res.sendFile(path.join(__dirname+'/../views/html/login.html'));
   })
+
 router.post("/signin" , login.signin)
+
+
 export default router
