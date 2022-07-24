@@ -17,6 +17,8 @@ import passport from "passport";
 import APIRouter from "./routes/APIRouter.js"
 
 dotenv.config();
+process.env.ACCESS_TOKEN_SECRET
+
 const app = express();
 const JwtStrategy = Strategy;
 try {

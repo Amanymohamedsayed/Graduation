@@ -5,7 +5,6 @@ import connection from "../../util/connection"
 import User from "../../models/user"
 async function login(req , res , next){
     try{
-        console.log(User)
         const {email , password} = req.body
         if ( !email ) { 
             return Responses.badRequest( res , "400" , " email cannt be empty ")   }
@@ -18,7 +17,7 @@ async function login(req , res , next){
             return Responses.badRequest( res , "400" , " user not found " ) 
         } 
        const checkpassword = await bcrypt.compare(password, user.password);
-       if (!checkPassword) {
+       if (!checkpassword) {
         return Responses.badRequest(
             res,
             "InvalidCredentials",
@@ -31,18 +30,20 @@ async function login(req , res , next){
         { expiresIn: 2 * 24 * 60 * 60 }
     );
     const refreshToken = jwt.sign(
-        { userId: user.userId, role: user.role, refresh: true },
+        { userId: user.userId, role: user.role },
         process.env.REFRESH_TOKEN_SECRET,
-        { expiresIn: 7 * 24 * 60 * 60 }
-    ); 
-            
+        { expiresIn: 2 * 24 * 60 * 60 }
+    );
+
+          console.log(accessToken , " " , refreshToken);  
         return Responses.success(
             res,
             "logged in Successfully",
             {
                 access_token: accessToken,
                 refresh_token: refreshToken,
-                role:user.role    
+                role:user.role ,  
+
             }
         );     
     }
